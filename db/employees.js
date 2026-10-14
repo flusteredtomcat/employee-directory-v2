@@ -11,18 +11,19 @@ const employees = [
   { id: 10, name: "Gwen Grollmann" },
 ];
 
-/* WARNING: this must remain the default export in order for the tests to work! */
 export default employees;
 
-export function getEmployees() {
-  return employees;
-}
+export const getEmployeeById = (id) => {
+  // Since the id from a url is a string but our ids are numbers we need
+  // to convert the sting to a number to have equality
+  return employees.find((emp) => emp.id === parseInt(id));
+};
 
-export function getEmployee(id) {
-  return employees.find((e) => e.id === id);
-}
+export const addemployee = (emp) => {
+  const lastEmployee = employees[employees.length - 1];
+  const newEmployee = { id: lastEmployee.id + 1, ...emp };
 
-export function getRandomEmployee() {
-  const randomIndex = Math.floor(Math.random() * employees.length);
-  return employees[randomIndex];
-}
+  employees.push(newEmployee);
+
+  return newEmployee;
+};
